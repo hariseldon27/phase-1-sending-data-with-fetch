@@ -21,7 +21,7 @@ describe( "submitData()", () => {
   it( "makes a POST request to /users with a name and email", async () => {
     let reqBody
     let headers
-    nock( 'http://localhost:3000' )
+    nock( 'http://localhost:3001' )
       .post( '/users' )
       .reply( 201, function ( uri, requestBody ) {
         reqBody = requestBody
@@ -37,7 +37,7 @@ describe( "submitData()", () => {
 
     await submitData( name, email )
     expect( window.fetch, "A fetch to the API was not found" )
-      .to.have.been.called.with( 'http://localhost:3000/users' );
+      .to.have.been.called.with( 'http://localhost:3001/users' );
     expect( window.fetch )
       .to.have.been.called.exactly( 1 );
     expect( headers[ 'content-type' ][ 0 ] )
@@ -53,7 +53,7 @@ describe( "submitData()", () => {
   } )
 
   it( "handles the POST request response, retrieves the new id value and appends it to the DOM", async function () {
-    nock( 'http://localhost:3000' )
+    nock( 'http://localhost:3001' )
       .post( '/users' )
       .reply( 201, function ( uri, requestBody ) {
         return {
@@ -73,7 +73,7 @@ describe( "submitData()", () => {
 
   it( "handles a failed POST request using catch, appends the error message to the DOM", async function () {
     let message = 'Unauthorized Access'
-    nock( 'http://localhost:3000' )
+    nock( 'http://localhost:3001' )
       .post( '/users' )
       .replyWithError( {
         message: message,
